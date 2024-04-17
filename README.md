@@ -1,7 +1,8 @@
 # novel_translator
 A novel translator by gradio and deepl API.
-
+---
 小说翻译时，章节太多，一章一章复制翻译眼睛都要瞎了...
+
 一章上万字，翻译引擎一次只能翻译1500个字符，手动截取，手都要断了...
 
 我懂你的痛。
@@ -10,13 +11,13 @@ A novel translator by gradio and deepl API.
 ### 自动章节分割
 ### 不限长度翻译
 也不是不限吧，一次10章，不能再多了, 服务器真的一滴也炸不出来了...
+---
 
-
-## 长这样：
+## 工具界面：
 
 ![image](https://github.com/valderwu3/novel_translator/assets/132856834/de727b57-f080-4a14-9f49-c5e397f27b2f)
 
-
+---
 ## 注意事项：
 
 ### 章节分割符：
@@ -31,7 +32,8 @@ A novel translator by gradio and deepl API.
 填好上面所有信息后，按下面操作即可。
 ![image](https://github.com/valderwu3/novel_translator/assets/132856834/119c278c-00e1-46cc-bd2d-bc9eb979a920)
 
-
+---
+---
 
 我是毛哥，RPA+AI探索中。
 

@@ -1,4 +1,5 @@
 # novel_translator
+---
 A novel translator by gradio and deepl API.
 ---
 小说翻译时，章节太多，一章一章复制翻译眼睛都要瞎了...
@@ -8,9 +9,9 @@ A novel translator by gradio and deepl API.
 我懂你的痛。
 
 用这个工具吧！上传小说，
-### 自动章节分割
-### 不限长度翻译
-也不是不限吧，一次10章，不能再多了, 服务器真的一滴也炸不出来了...
+
+- 自动章节分割
+- 不限长度翻译
 ---
 
 ## 工具界面：

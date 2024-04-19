@@ -4,3 +4,6 @@ log.txt
 # PyCharm configuration directories and file
 .idea/
 *.iml
+
+# Ignore Python compiled files
+*.pyc

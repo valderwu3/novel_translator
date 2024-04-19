@@ -2,8 +2,12 @@ import os
 import deepl
 import zipfile
 import re
-
 import gradio
+import logging as log
+
+
+# level=logging.DEBUG 、INFO 、WARNING、ERROR、CRITICAL
+log.basicConfig(filename='log.txt', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s-%(funcName)s', level='INFO')
 
 
 def starts_with_one_of(line, *tags):
@@ -31,7 +35,7 @@ def split_chapters(novel_file, seps, translate_from_chapter, translate_chapter_c
         start_flag = False
         end_flag = False
         count = 0
-        with open(novel_file.name) as f:
+        with open(novel_file.name, encoding="gbk") as f:
             for line in f:
                 if not start_flag and translate_from_chapter in line:
                     start_flag = True
@@ -43,10 +47,10 @@ def split_chapters(novel_file, seps, translate_from_chapter, translate_chapter_c
                         if count == translate_chapter_count:
                             end_flag = True
                             break
-                if start_flag:
-                    chapter += line
-            if not end_flag:
-                chapters.append(chapter)
+                    if start_flag:
+                        chapter += line
+                    if not end_flag:
+                        chapters.append(chapter)
             return chapters
 
 
@@ -66,6 +70,7 @@ def translate_chapters(chapters, auth_key):
         if not chapter.strip():
             continue
         file_name = chapter.split('\n', maxsplit=1)[0].strip()+'.en.txt'
+        log.info(f"translating {file_name} ...")
         translated_chapters[file_name] = translate(chapter, auth_key)
     return translated_chapters
 
@@ -77,6 +82,7 @@ def translate_novel(novel_file, seps, translate_from_chapter, translate_chapter_
     translated_chapters = translate_chapters(chapters, auth_key.strip())
     zip_name = novel_file.name + '.en.zip'
     zip_txt_files(translated_chapters, zip_name)
+    log.info(f"zip {zip_name} ...")
     return zip_name
 
 
@@ -84,7 +90,9 @@ def check_split(novel_file, seps, translate_from_chapter, translate_chapter_coun
     seps = seps.strip().replace('，', ',').replace('*', '.*').split(',')
     seps = [sep.strip() for sep in seps]
     chapters = split_chapters(novel_file, seps, translate_from_chapter, translate_chapter_count)
-    return ' |  '.join([chapter.split(maxsplit=1)[0] for chapter in chapters])
+    chapter_info = ' |  '.join([chapter.split(maxsplit=1)[0] for chapter in chapters])
+    log.info(f"split {chapter_info} ...")
+    return chapter_info
 
 
 if __name__ == '__main__':

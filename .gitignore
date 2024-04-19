@@ -1,0 +1,6 @@
+# Ignore log.txt file
+log.txt
+
+# PyCharm configuration directories and file
+.idea/
+*.iml

@@ -16,12 +16,16 @@ from translate_novel import translate_novel, check_split
 import gradio as gr
 
 
+from translate_novel import translate_novel, check_split
+import gradio as gr
+
+
 with gr.Blocks() as view:
     gr.Markdown("## 出海爆文章节翻译工具")
     # gr.Markdown("---")
     with gr.Column(min_width=100):
         with gr.Row():
-            in1 = gr.inputs.File(type="file", label="上传小说txt文件")  # novel_file
+            in1 = gr.inputs.File(label="上传小说txt文件")  # novel_file
             in2 = gr.inputs.Textbox(label="章节分割符, 多个字符串请用逗号隔开, 模糊匹配用*代替", default="内容简介, 第*章, 第*卷")  # seps
             in3 = gr.inputs.Textbox(label="从此章节开始翻译", default="第一章")  # translate_to_chapter
         with gr.Row():
@@ -32,16 +36,11 @@ with gr.Blocks() as view:
         with gr.Row():
             out1 = gr.outputs.Textbox(label="Processed Text")
             out2 = gr.outputs.File(label="Download Processed Text")
-            # avatar = gr.outputs.Image(type='filepath', label="  ❤️")
-            # with gr.Blocks():
-            #     gr.Markdown("Created By: [](https://gradio.app/) for more information.")
-            # with gr.Blocks():
-            #     gr.Markdown("Check out the [Gradio website](https://gradio.app/) for more information.")
     inputs = [in1, in2, in3, in4, in5, in6]
-    gr.Button("第一步: 检查章节分割是否正确").click(fn=check_split, inputs=inputs[:-2], outputs=out1)
-    gr.Button("第二步: 开始翻译").click(fn=translate_novel, inputs=inputs, outputs=out2)
-    gr.Button("❤️我是毛哥, AI+RPA副业探索中, 🌍 vx：wuvalder    ❤️")
+    gr.Button("第一步: 检查章节分割是否正确").click(fn=check_split, inputs=inputs[:-2], outputs=[out1])
+    gr.Button("第二步: 开始翻译").click(fn=translate_novel, inputs=inputs, outputs=[out2])
+    gr.Button("❤️我是毛哥, AI+RPA副业探索中, 🌍  vx：wuvalder    ❤️")
 view.title = "小说章节翻译工具"
 
 
-view.launch(show_tips=True, show_error=True, share=True)
+view.launch(show_tips=True, show_error=True)

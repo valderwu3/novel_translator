@@ -1,4 +1,5 @@
 import os
+import chardet
 import deepl
 import zipfile
 import re
@@ -35,7 +36,12 @@ def split_chapters(novel_file, seps, translate_from_chapter, translate_chapter_c
         start_flag = False
         end_flag = False
         count = 0
-        with open(novel_file.name, encoding="gbk") as f:
+        with open(novel_file.name, 'rb') as file:
+            raw_data = file.read(4096)
+            encoding = chardet.detect(raw_data)['encoding']
+            print(encoding)
+        # 使用检测到的编码方式读取文件
+        with open(novel_file.name, 'r', encoding=encoding) as f:
             for line in f:
                 if not start_flag and translate_from_chapter in line:
                     start_flag = True
